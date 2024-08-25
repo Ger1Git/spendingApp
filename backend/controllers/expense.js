@@ -49,3 +49,18 @@ exports.deleteExpense = async (req, res) => {
         })
         .catch((error) => res.status(500).json({ message: `${error}` }));
 };
+
+exports.updateExpense = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedExpense = await ExpenseSchema.findByIdAndUpdate(id, { ...req.body }, { new: true });
+
+        if (!updatedExpense) {
+            return res.status(404).json({ message: 'Expense not found' });
+        }
+
+        res.status(200).json(updatedExpense);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};

@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import Layout from './Layout';
-import Dashboard from './Components/Dashboard';
+import Dashboard from './Components/Dashboard/Dashboard';
 import Expenses from './Components/Expenses/Expenses';
 import Incomes from './Components/Incomes/Incomes';
 // import Account from './Components/Account/Account';

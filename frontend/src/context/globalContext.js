@@ -34,8 +34,17 @@ export const Provider = ({ children }) => {
 
     const deleteIncome = async (id) => {
         try {
-            await axios.delete(`${BASE_URL}/delete-income/${id}`);
+            await request(`/delete-income/${id}`, 'DELETE');
             getIncomes();
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const updateIncome = async (id, data) => {
+        try {
+            const response = await request(`/update-income/${id}`, 'PUT', data);
+            return response;
         } catch (error) {
             setError(error.response.data.message);
         }
@@ -69,6 +78,15 @@ export const Provider = ({ children }) => {
         }
     };
 
+    const updateExpense = async (id, data) => {
+        try {
+            const response = await request(`/update-expense/${id}`, 'PUT', data);
+            return response;
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
     const totalIncome = () => incomes.reduce((total, income) => total + income.amount, 0);
 
     const totalExpenses = () => expenses.reduce((total, expense) => total + expense.amount, 0);
@@ -90,10 +108,12 @@ export const Provider = ({ children }) => {
                 addIncome,
                 getIncomes,
                 deleteIncome,
+                updateIncome,
                 totalIncome,
                 addExpense,
                 getExpenses,
                 deleteExpense,
+                updateExpense,
                 totalExpenses,
                 totalBalance,
                 transactionHistory,

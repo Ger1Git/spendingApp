@@ -18,9 +18,12 @@ const useRequestWithAuth = () => {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
-                },
-                data: method === 'POST' ? JSON.stringify(data) : null
+                }
             };
+
+            if (data) {
+                config.data = JSON.stringify(data);
+            }
 
             const response = await axios(`${BASE_URL}${url}`, config);
 
