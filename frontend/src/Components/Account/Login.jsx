@@ -28,8 +28,8 @@ const Login = () => {
             <form onSubmit={handleLogin} className='text-black flex flex-col justify-center'>
                 <h1 className='text-3xl font-bold mb-[35px] mt-[15px] text-center'>Login</h1>
                 {error && (
-                    <div className='flex items-center mb-2'>
-                        <MdError className='mr-2 h-5 w-5' color={'#b30404'} />
+                    <div className='flex items-center mb-2 bg-gray-100 rounded-md p-2'>
+                        <MdError className='mr-2 h-8 w-8' color={'#b30404'} />
                         <span>{error}</span>
                     </div>
                 )}

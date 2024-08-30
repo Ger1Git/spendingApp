@@ -62,7 +62,7 @@ const Navigation = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className='underline absolute' style={underlineStyle}></div>
+                        <div className='custom-underline' style={underlineStyle}></div>
                     </div>
                     <div className='hidden md:flex'>
                         <VscAccount size={30} className='mr-4 cursor-pointer hover:scale-110' onClick={() => navigate('/account')} />

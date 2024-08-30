@@ -3,26 +3,31 @@ const ExpenseSchema = require('../models/expenseSchema');
 exports.addExpense = async (req, res) => {
     const { title, amount, category, description, date } = req.body;
 
+    //validations
+    if (!title || !amount || !date || !category) {
+        req.status(400).json({ message: 'All fields are required' });
+    }
+
+    if (!amount) {
+        req.status(400).json({
+            message: 'Amount must not be 0 or a negative value'
+        });
+    }
+
+    const formatDate = new Date(date);
+    if (isNaN(new Date(date).getTime())) {
+        return res.status(400).json({ message: 'Invalid date format' });
+    }
+
     try {
         const expense = new ExpenseSchema({
             title,
             amount,
             category,
-            description,
-            date,
+            description: description || '',
+            date: formatDate,
             userId: req.user._id
         });
-
-        //validations
-        if (!title || !amount || !date || !category || !description) {
-            req.status(400).json({ message: 'All fields are required' });
-        }
-
-        if (!amount) {
-            req.status(400).json({
-                message: 'Amount must not be 0 or a negative value'
-            });
-        }
 
         await expense.save();
         res.status(200).json({ message: 'Expense added' });

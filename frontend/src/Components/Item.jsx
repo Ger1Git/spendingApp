@@ -102,7 +102,7 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
     };
 
     return (
-        <div className='flex justify-between items-center md:gap-[20px] lg:gap-[100px] p-3 border-2 rounded-md shadow-dark overflow-hidden'>
+        <div className='flex justify-between items-center gap-[20px] lg:gap-[100px] p-3 border-2 rounded-md shadow-dark overflow-hidden'>
             <div className='flex gap-3 items-center flex-grow'>
                 <GiWallet size={30} />
                 <div className='flex flex-col gap-1'>
@@ -188,13 +188,14 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                 <FaEdit
                     size={20}
                     className={`hover:text-black cursor-pointer transition duration-300 ${
-                        isDeleting ? 'opacity-0' : isEditing ? 'translate-x-[30px]' : 'translate-x-0'
+                        isDeleting ? 'opacity-0 translate-x-[40px]' : isEditing ? 'opacity-0 md:opacity-100 translate-x-[30px]' : 'translate-x-0'
                     }`}
                     onClick={() => setIsEditing(true)}
                 />
                 <ImBin
                     size={20}
-                    className={`hover:text-red-500 transition duration-300 cursor-pointer ${isEditing ? 'opacity-0 translate-x-[40px]' : 'translate-x-0'}`}
+                    className={`hover:text-red-500 transition duration-300 cursor-pointer 
+                        ${isEditing ? 'opacity-0 translate-x-[40px]' : isDeleting ? 'translate-y-[-100px] md:translate-y-0' : 'translate-x-0'}`}
                     onClick={() => setIsDeleting(true)}
                 />
                 <div className='flex flex-col items-center gap-[2px] absolute top-[-100%] left-[130%]'>

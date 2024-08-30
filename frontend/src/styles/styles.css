@@ -23,7 +23,7 @@
     border-radius: 5px;
 }
 
-.underline {
+.custom-underline {
     position: absolute;
     background-color: white;
     height: 3px;
