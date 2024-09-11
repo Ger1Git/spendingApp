@@ -6,7 +6,7 @@ import { MdError } from 'react-icons/md';
 import 'react-datepicker/dist/react-datepicker.module.css';
 import { useGlobalContext } from '../context/globalContext';
 import { incomeCategories, expenseCategories } from '../utils/utils';
-import { formatNumber } from 'chart.js/helpers';
+import Notification from './Notifications';
 
 const Form = ({ type, onSubmit }) => {
     const { addIncome, addExpense, error, success } = useGlobalContext();
@@ -35,6 +35,10 @@ const Form = ({ type, onSubmit }) => {
 
         if (!formData.amount) {
             formError.amount = 'Amount is required';
+        }
+
+        if (formData.amount < 0) {
+            formError.amount = 'Amount cannot be negative';
         }
 
         if (!formData.date) {
@@ -78,9 +82,11 @@ const Form = ({ type, onSubmit }) => {
         const validationErrors = validate();
         setErrors(validationErrors);
 
-        if (!Object.keys(validationErrors).length) {
-            onSubmit(formData);
+        if (Object.keys(validationErrors).length) {
+            return;
         }
+
+        onSubmit(formData);
 
         setFormData({
             title: '',
@@ -106,7 +112,7 @@ const Form = ({ type, onSubmit }) => {
                     onChange={(e) => handleForm('title', e.target.value)}
                 />
                 {formError.title && (
-                    <div className='flex items-center mt-1'>
+                    <div className='flex items-center bg-gray-100 rounded-md mt-2 p-1 border border-gray-300 shadow-md'>
                         <MdError className='mr-2 h-5 w-5' color={'#b30404'} />
                         <span>{formError.title}</span>
                     </div>
@@ -125,7 +131,7 @@ const Form = ({ type, onSubmit }) => {
                     onChange={(e) => handleForm('amount', e.target.value)}
                 />
                 {formError.amount && (
-                    <div className='flex items-center mt-1'>
+                    <div className='flex items-center bg-gray-100 rounded-md mt-2 p-1 border border-gray-300 shadow-md'>
                         <MdError className='mr-2 h-5 w-5' color={'#b30404'} />
                         <span>{formError.amount}</span>
                     </div>
@@ -144,7 +150,7 @@ const Form = ({ type, onSubmit }) => {
                     }}
                 />
                 {formError.date && (
-                    <div className='flex items-center mt-1'>
+                    <div className='flex items-center bg-gray-100 rounded-md mt-2 p-1 border border-gray-300 shadow-md'>
                         <MdError className='mr-2 h-5 w-5' color={'#b30404'} />
                         <span>{formError.date}</span>
                     </div>
@@ -170,7 +176,7 @@ const Form = ({ type, onSubmit }) => {
                     ))}
                 </select>
                 {formError.category && (
-                    <div className='flex items-center mt-1'>
+                    <div className='flex items-center bg-gray-100 rounded-md mt-2 p-1 border border-gray-300 shadow-md'>
                         <MdError className='mr-2 h-5 w-5' color={'#b30404'} />
                         <span>{formError.category}</span>
                     </div>
@@ -192,8 +198,7 @@ const Form = ({ type, onSubmit }) => {
                 >
                     <FaPlus /> Add {transaction}
                 </button>
-                {success && <div className='text-success mt-2 '>{success}</div>}
-                {error && <div className='error-message mt-2'>{error}</div>}
+                <Notification success={success} error={error} />
                 <div className='my-2 text-md'>* - field is required</div>
             </form>
         </div>
