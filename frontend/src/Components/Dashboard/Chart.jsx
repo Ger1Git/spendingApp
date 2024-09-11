@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const Chart = ({ data }) => {
+const Chart = ({ data, label, lineColor }) => {
     let cumulativeSum = 0;
 
     // Initialize labels and data arrays
@@ -20,17 +20,17 @@ const Chart = ({ data }) => {
         labels,
         datasets: [
             {
-                label: 'Cumulative Income',
+                label: `Cumulative ${label}`,
                 data: cumulativeData,
                 fill: true,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                borderColor: `${lineColor}`,
                 pointBackgroundColor: 'rgba(75, 192, 192, 1)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
                 pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
-                tension: 0.4
+                tension: 0.2
             }
         ]
     };
@@ -49,11 +49,11 @@ const Chart = ({ data }) => {
             },
             title: {
                 display: true,
-                text: 'Cumulative Income Over Time',
+                text: `Cumulative ${label} Over Time`,
                 font: {
                     size: 18
                 },
-                color: 'black'
+                color: 'white'
             },
             tooltip: {
                 backgroundColor: 'rgba(0,0,0,0.7)',
@@ -83,8 +83,7 @@ const Chart = ({ data }) => {
             y: {
                 beginAtZero: true,
                 grid: {
-                    color: 'rgba(200, 200, 200, 0.2)',
-                    borderDash: [5, 5]
+                    display: false
                 },
                 ticks: {
                     font: {

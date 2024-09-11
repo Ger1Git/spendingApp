@@ -8,7 +8,9 @@ const Expenses = () => {
     const { expenses, getExpenses, addExpense, setError } = useGlobalContext();
 
     useEffect(() => {
-        getExpenses();
+        if (expenses.length === 0) {
+            getExpenses();
+        }
     }, []);
 
     const handleAddIncome = async (expense) => {
@@ -23,7 +25,7 @@ const Expenses = () => {
     return (
         <>
             <div className='flex flex-col justify-center gap-10 my-[50px]'>
-                <div className='text-center text-[30px] mb-4'>Expenses</div>
+                <div className='text-center font-cursive text-[30px] mb-4'>Expenses</div>
                 <div className='flex flex-col mx-[20px] md:flex-row justify-center gap-[30px]'>
                     <Form type={'Expense'} onSubmit={handleAddIncome} />
                     <div className='order-1 md:order-2 flex flex-col gap-[15px] bg-blue-400 bg-opacity-40 max-h-[480px] lg:max-h-full p-5 rounded-md shadow-dark text-white overflow-hidden overflow-y-auto custom-scrollbar'>

@@ -17,6 +17,7 @@ export const Provider = ({ children }) => {
         try {
             await request('/add-income', 'POST', income);
             setSuccess('Income successfully added');
+            setError('');
             getIncomes();
         } catch (err) {
             setError(err.message);
@@ -26,6 +27,7 @@ export const Provider = ({ children }) => {
     const getIncomes = useCallback(async () => {
         try {
             const data = await request('/get-incomes');
+            setError('');
             setIncomes(data);
         } catch (error) {
             setError(error.message);
@@ -35,6 +37,8 @@ export const Provider = ({ children }) => {
     const deleteIncome = async (id) => {
         try {
             await request(`/delete-income/${id}`, 'DELETE');
+            setError('');
+            setSuccess('Income successfully deleted');
             getIncomes();
         } catch (error) {
             setError(error.message);
@@ -54,6 +58,7 @@ export const Provider = ({ children }) => {
         try {
             await request('/add-expense', 'POST', expense);
             setSuccess('Expense successfully added');
+            setError('');
             getExpenses();
         } catch (error) {
             setError(error.message);
@@ -63,6 +68,7 @@ export const Provider = ({ children }) => {
     const getExpenses = useCallback(async () => {
         try {
             const data = await request('/get-expenses');
+            setError('');
             setExpenses(data);
         } catch (error) {
             setError(error.message);
@@ -72,6 +78,8 @@ export const Provider = ({ children }) => {
     const deleteExpense = async (id) => {
         try {
             await request(`/delete-expense/${id}`, 'DELETE');
+            setError('');
+            setSuccess('Expense successfully deleted');
             getExpenses();
         } catch (error) {
             setError(error.message);

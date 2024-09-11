@@ -110,7 +110,7 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                         <>
                             <div>{`${newTitle} (${newCategory})`}</div>
                             <div className='flex gap-3'>
-                                <div className='flex items-center gap-1'>
+                                <div className={`flex items-center gap-1 ${newAmount < 0 ? 'text-red-500' : 'text-green-500'}`}>
                                     <FaMoneyBillAlt /> {newAmount} RON
                                 </div>
                                 <div className='flex items-center gap-1'>

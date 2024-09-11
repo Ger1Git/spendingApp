@@ -22,7 +22,7 @@ exports.addExpense = async (req, res) => {
     try {
         const expense = new ExpenseSchema({
             title,
-            amount,
+            amount: amount * -1,
             category,
             description: description || '',
             date: formatDate,
