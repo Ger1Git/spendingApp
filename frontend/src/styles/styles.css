@@ -1,3 +1,4 @@
+/* Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,23 +7,28 @@
     display: none;
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: rgba(20, 69, 177, 0.5);
-    border-radius: 5px;
-    border: 2px solid transparent;
-    background-clip: content-box;
+.custom-scrollbar {
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+    scrollbar-width: thin;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-    display: block;
     width: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
 }
 
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Custom underline */
 .custom-underline {
     position: absolute;
     background-color: white;

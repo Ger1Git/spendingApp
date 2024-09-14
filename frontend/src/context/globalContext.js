@@ -104,7 +104,9 @@ export const Provider = ({ children }) => {
     const transactionHistory = () => {
         const history = [...incomes, ...expenses];
         history.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+            return dateB.getTime() - dateA.getTime();
         });
 
         return history;
