@@ -37,13 +37,13 @@ const Chart = ({ data, label, lineColor }) => {
 
     const options = {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: false, // Allows the chart to scale with the container
         plugins: {
             legend: {
                 position: 'top',
                 labels: {
                     font: {
-                        size: 14
+                        size: 16 // Increased font size for better visibility
                     }
                 }
             },
@@ -51,7 +51,7 @@ const Chart = ({ data, label, lineColor }) => {
                 display: true,
                 text: `Cumulative ${label} Over Time`,
                 font: {
-                    size: 18
+                    size: 22 // Larger title font
                 },
                 color: 'white'
             },
@@ -76,7 +76,7 @@ const Chart = ({ data, label, lineColor }) => {
                 },
                 ticks: {
                     font: {
-                        size: 12
+                        size: 14 // Larger x-axis tick font size
                     }
                 }
             },
@@ -87,7 +87,7 @@ const Chart = ({ data, label, lineColor }) => {
                 },
                 ticks: {
                     font: {
-                        size: 12
+                        size: 14 // Larger y-axis tick font size
                     }
                 }
             }
@@ -95,7 +95,7 @@ const Chart = ({ data, label, lineColor }) => {
     };
 
     return (
-        <div className='bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white h-[300px] w-[500px]'>
+        <div className='bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white w-[400px] h-[250px] md:w-[500px] md:h-[300px] lg:w-[600px] lg:h-[450px]'>
             <Line data={chartData} options={options} />
         </div>
     );

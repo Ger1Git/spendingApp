@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useRegisterMutation } from '../../context/auth';
+import { useGlobalContext } from '../../context/globalContext';
 import { MdError } from 'react-icons/md';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 const Register = () => {
+    const { getIncomes, getExpenses } = useGlobalContext();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -17,6 +19,8 @@ const Register = () => {
         e.preventDefault();
         try {
             await registerMutation.mutateAsync({ username, password, email });
+            await getIncomes();
+            await getExpenses();
             navigate('/login');
         } catch (error) {
             console.error('Registration failed:', error.message);

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../context/auth';
+import { useGlobalContext } from '../../context/globalContext';
 import { MdError } from 'react-icons/md';
 import { FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
 
 const Login = () => {
+    const { getIncomes, getExpenses } = useGlobalContext();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -16,6 +18,8 @@ const Login = () => {
         e.preventDefault();
         try {
             await loginMutation.mutateAsync({ username, password });
+            await getIncomes();
+            await getExpenses();
             navigate('/dashboard');
         } catch (error) {
             setError('Login failed. Please check your credentials.');
