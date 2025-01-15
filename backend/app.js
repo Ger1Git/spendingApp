@@ -14,13 +14,13 @@ app.use(express.json());
 app.use(cors());
 
 //routes
-const expenseRoutes = require('./routes/expense');
-const incomeRoutes = require('./routes/income');
-const authRoutes = require('./routes/auth');
+const routes = require('./routes/routes');
 
-app.use('/api/v1', expenseRoutes);
-app.use('/api/v1', incomeRoutes);
-app.use('/api/v1', authRoutes);
+app.use('/api/v1', routes);
+
+app.get('/', (req, res) => {
+    res.send('Server is ready');
+});
 
 const server = () => {
     db();
