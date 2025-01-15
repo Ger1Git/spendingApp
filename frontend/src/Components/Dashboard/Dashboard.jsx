@@ -64,7 +64,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className='flex flex-col justify-center gap-10 my-[50px]'>
+        <div className='flex flex-col justify-center gap-10 lg:my-[50px]'>
             <div className='flex flex-col gap-[15px] bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white min-h-[100px]'>
                 <div className='text-center text-[30px]'>All transactions</div>
                 <div className='text-center text-[30px]'>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                     </select>
                 </div>
                 {(incomes && incomes.length > 0) || (expenses && expenses.length > 0) ? (
-                    <div className='flex flex-col md:flex-row justify-center gap-[30px] mt-[20px]'>
+                    <div className='flex flex-col lg:flex-row justify-center gap-[30px] mt-[20px]'>
                         {selectedChart === 'Incomes' && <Chart data={incomes} label={'Income'} lineColor={'rgba(0, 128, 0)'} />}
                         {selectedChart === 'Expenses' && <Chart data={expenses} label={'Expense'} lineColor={'rgb(210, 4, 45)'} />}
                         {selectedChart === 'Total' && <Chart data={sortedData} label={'Total'} lineColor={'rgb(255, 255, 255)'} />}

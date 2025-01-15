@@ -103,7 +103,7 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
 
     return (
         <div className='flex justify-between items-center gap-[20px] lg:gap-[100px] h-[80px] flex-shrink-0 p-3 border-2 rounded-md shadow-dark overflow-hidden'>
-            <div className='flex gap-3 items-center flex-grow'>
+            <div className='flex gap-3 items-center flex-grow flex-shrink-0'>
                 <GiWallet size={30} />
                 <div className='flex flex-col gap-1'>
                     {!isEditing ? (
@@ -152,8 +152,10 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                                     <FaMoneyBillAlt />
                                     <input
                                         value={newAmount}
-                                        type='text'
-                                        className='py-0.5 px-1 rounded-md shadow-dark border-2 border-blue-400 w-10 text-sm font-medium text-gray-700 text-center'
+                                        type='number'
+                                        pattern='[0-9]*'
+                                        inputMode='numeric'
+                                        className='py-0.5 px-1 rounded-md shadow-dark border-2 border-blue-400 w-20 text-sm font-medium text-gray-700 text-center'
                                         onChange={(e) => setNewAmount(e.target.value)}
                                     />
                                     RON
@@ -187,15 +189,25 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
             <div className={`relative transition-transform duration-300 flex gap-[10px] ${isEditing || isDeleting ? 'transform translate-x-[-80px]' : ''}`}>
                 <FaEdit
                     size={20}
-                    className={`hover:text-black cursor-pointer transition duration-300 ${
-                        isDeleting ? 'opacity-0 translate-x-[40px]' : isEditing ? 'opacity-0 md:opacity-100 translate-x-[30px]' : 'translate-x-0'
+                    className={`transition duration-300 ${
+                        isDeleting
+                            ? 'opacity-0 translate-x-[40px] cursor-default'
+                            : isEditing
+                            ? 'opacity-0 md:opacity-100 translate-x-[30px] cursor-default'
+                            : 'translate-x-0 cursor-pointer hover:text-black '
                     }`}
                     onClick={() => setIsEditing(true)}
                 />
                 <ImBin
                     size={20}
-                    className={`hover:text-red-500 transition duration-300 cursor-pointer 
-                        ${isEditing ? 'opacity-0 translate-x-[40px]' : isDeleting ? 'translate-y-[-100px] md:translate-y-0' : 'translate-x-0'}`}
+                    className={`transition duration-300 
+                        ${
+                            isEditing
+                                ? 'opacity-0 translate-x-[40px] cursor-default'
+                                : isDeleting
+                                ? 'translate-y-[-100px] md:translate-y-0 cursor-default'
+                                : 'translate-x-0 cursor-pointer hover:text-red-500'
+                        }`}
                     onClick={() => setIsDeleting(true)}
                 />
                 <div className='flex flex-col items-center gap-[2px] absolute top-[-100%] left-[130%]'>

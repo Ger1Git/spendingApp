@@ -98,7 +98,7 @@ const Form = ({ type, onSubmit }) => {
     };
 
     return (
-        <div className='order-2 md:order-1 bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white'>
+        <div className='order-2 md:order-1 bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white '>
             <form onSubmit={handleSubmit} className='text-black px-5 flex flex-col justify-center'>
                 <label htmlFor='name' className='block mb-2 text-sm font-medium text-gray-700'>
                     *Title

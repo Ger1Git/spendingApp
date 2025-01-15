@@ -24,9 +24,9 @@ const Incomes = () => {
 
     return (
         <>
-            <div className='flex flex-col justify-center gap-10 my-[50px]'>
+            <div className='flex flex-col lg:my-[50px] gap-[15px] bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white min-h-[100px]'>
                 <div className='text-center font-cursive text-[30px] mb-4'>Incomes</div>
-                <div className='flex flex-col mx-[20px] md:flex-row justify-center gap-[30px]'>
+                <div className='flex flex-col lg:max-h-[559px] mx-[20px] md:flex-row justify-center gap-[30px]'>
                     <Form type={'Income'} onSubmit={handleAddIncome} />
                     <div className='order-1 md:order-2 flex flex-col gap-[15px] bg-blue-400 bg-opacity-40 max-h-[480px] lg:max-h-full p-5 rounded-md shadow-dark text-white overflow-hidden overflow-y-auto custom-scrollbar'>
                         {incomes && incomes.length ? (

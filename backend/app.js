@@ -5,14 +5,11 @@ const { db } = require('./db/db');
 const { readdirSync } = require('fs');
 const app = express();
 
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
-const PORT = process.env.PORT;
-
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200
-};
+const PORT = process.env.PORT || 5000;
 
 //middlewares
 app.use(express.json());

@@ -42,9 +42,11 @@ const Navigation = () => {
 
     return (
         <div className='sticky top-0 left-0 z-10 w-full flex justify-between items-center h-21 mx-auto px-4 text-white bg-blue-400 shadow-md'>
-            <div className='flex justify-center items-center flex-col cursor-pointer'>
-                <img src={logo} alt='Not loaded' className='h-100 w-50 object-cover'></img>
-                <div className='text-white font-cursive'>Spending Tracker</div>
+            <div className='flex justify-center items-center flex-col cursor-pointer py-[5px]'>
+                <div className='w-[60px] h-[35px] lg:w-[100px] lg:h-[60px] rounded-full overflow-hidden relative'>
+                    <img src={logo} alt='Not loaded' className='h-100 w-50 object-cover'></img>
+                </div>
+                <div className='text-white font-cursive text-sm lg:text-lg'>Spending Tracker</div>
             </div>
             {isAuthenticated && (
                 <>
