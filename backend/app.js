@@ -9,9 +9,21 @@ if (process.env.NODE_ENV !== 'production') {
 
 const PORT = process.env.PORT || 5000;
 
+const frontendUrl = process.env.FRONTEND_URL;
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (origin === frontendUrl || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS policy: This origin is not allowed by CORS.'));
+        }
+    },
+    credentials: true
+};
+
 //middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 //routes
 const routes = require('./routes/routes');
