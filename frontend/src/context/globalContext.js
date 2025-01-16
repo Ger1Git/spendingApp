@@ -2,7 +2,7 @@ import React, { useContext, useState, useCallback } from 'react';
 import axios from 'axios';
 import useRequestWithAuth from '../hooks/useRequestWithAuth';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost4000/api/v1';
 
 const GlobalContext = React.createContext();
 

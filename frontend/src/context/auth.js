@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMutation } from 'react-query';
 import Cookies from 'js-cookie';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000/api/v1';
 
 const login = async ({ username, password }) => {
     const response = await axios.post(`${BASE_URL}/login`, { username, password }, { withCredentials: true });
