@@ -1,15 +1,15 @@
-const ExpenseSchema = require('../models/expenseSchema');
+import ExpenseSchema from '../models/expenseSchema.js';  // Import with the .js extension
 
-exports.addExpense = async (req, res) => {
+export const addExpense = async (req, res) => {
     const { title, amount, category, description, date } = req.body;
 
-    //validations
+    // Validations
     if (!title || !amount || !date || !category) {
-        req.status(400).json({ message: 'All fields are required' });
+        return res.status(400).json({ message: 'All fields are required' });
     }
 
-    if (!amount) {
-        req.status(400).json({
+    if (amount <= 0) {
+        return res.status(400).json({
             message: 'Amount must not be 0 or a negative value'
         });
     }
@@ -36,7 +36,7 @@ exports.addExpense = async (req, res) => {
     }
 };
 
-exports.getExpenses = async (req, res) => {
+export const getExpenses = async (req, res) => {
     try {
         const expenses = await ExpenseSchema.find({ userId: req.user._id }).sort({ createdAt: -1 });
         res.status(200).json(expenses);
@@ -45,18 +45,20 @@ exports.getExpenses = async (req, res) => {
     }
 };
 
-exports.deleteExpense = async (req, res) => {
+export const deleteExpense = async (req, res) => {
     const { id } = req.params;
 
-    ExpenseSchema.findByIdAndDelete(id)
-        .then(() => {
-            res.status(200).json({ message: 'Expense deleted' });
-        })
-        .catch((error) => res.status(500).json({ message: `${error}` }));
+    try {
+        await ExpenseSchema.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Expense deleted' });
+    } catch (error) {
+        res.status(500).json({ message: `${error}` });
+    }
 };
 
-exports.updateExpense = async (req, res) => {
+export const updateExpense = async (req, res) => {
     const { id } = req.params;
+
     try {
         const updatedExpense = await ExpenseSchema.findByIdAndUpdate(id, { ...req.body }, { new: true });
 

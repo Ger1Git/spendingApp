@@ -1,20 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const { db } = require('./db/db');
-const app = express();
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import db from './db/db.js';
+import routes from './routes/routes.js';
+import mongoose from 'mongoose';
 
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+    dotenv.config();
 }
 
 const PORT = process.env.PORT;
 
+const app = express();
+
 const frontendUrl = process.env.FRONTEND_URL;
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log('Request Origin:', origin);
-        console.log('Frontend URL:', frontendUrl);
-        if (origin === frontendUrl || !origin) {
+        if (origin?.includes(frontendUrl) || !origin) {
             callback(null, true);
         } else {
             callback(new Error('CORS policy: This origin is not allowed by CORS.'));
@@ -28,8 +30,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 //routes
-const routes = require('./routes/routes');
-
 app.use('/api/v1', routes);
 
 app.get('/', (req, res) => {
@@ -37,7 +37,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-    res.send(`The frontend url for CORS is ${frontendUrl}`);
+    const state = mongoose.connection.readyState;
+    const status = {
+        0: 'disconnected',
+        1: 'connected',
+        2: 'connecting',
+        3: 'disconnecting'
+    };
+    res.send(`The frontend url for CORS is ${frontendUrl} and the database connections status is: ${status[state]}`);
 });
 
 const server = () => {

@@ -1,8 +1,10 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const User = require('../models/userSchema');
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import User from '../models/userSchema.js';
 
-exports.login = async (req, res) => {
+dotenv.config();
+
+export const login = async (req, res) => {
     const { username, password } = req.body;
 
     try {

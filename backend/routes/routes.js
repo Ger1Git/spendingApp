@@ -1,10 +1,11 @@
-const { addExpense, getExpenses, deleteExpense, updateExpense } = require('../controllers/expense');
-const { addIncome, getIncomes, deleteIncome, updateIncome } = require('../controllers/income');
-const { authenticateToken } = require('../middleware/auth');
-const { login } = require('../controllers/login');
-const { register } = require('../controllers/register');
+import { Router } from 'express';
+import { addExpense, getExpenses, deleteExpense, updateExpense } from '../controllers/expense.js';
+import { addIncome, getIncomes, deleteIncome, updateIncome } from '../controllers/income.js';
+import { authenticateToken } from '../middleware/auth.js';
+import { login } from '../controllers/login.js';
+import { register } from '../controllers/register.js';
 
-const router = require('express').Router();
+const router = Router();
 
 router
     .post('/login', login)
@@ -18,4 +19,4 @@ router
     .delete('/delete-expense/:id', authenticateToken, deleteExpense)
     .put('/update-expense/:id', authenticateToken, updateExpense);
 
-module.exports = router;
+export default router;

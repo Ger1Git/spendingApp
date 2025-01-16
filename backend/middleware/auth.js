@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/userSchema');
+import jwt from 'jsonwebtoken';
+import User from '../models/userSchema.js'; // Import with .js extension
 
-exports.authenticateToken = async (req, res, next) => {
+export const authenticateToken = async (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {

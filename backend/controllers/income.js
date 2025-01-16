@@ -1,20 +1,20 @@
-const IncomeSchema = require('../models/incomeSchema');
+import IncomeSchema from '../models/incomeSchema.js';  // Import with the .js extension
 
-exports.addIncome = async (req, res) => {
+export const addIncome = async (req, res) => {
     const { title, amount, category, description, date } = req.body;
 
     if (!title || !amount || !date || !category) {
-        req.status(400).json({ message: 'All fields are required' });
+        return res.status(400).json({ message: 'All fields are required' });
     }
 
-    if (!amount) {
-        req.status(400).json({
-            message: 'Amount must not be 0'
+    if (amount <= 0) {
+        return res.status(400).json({
+            message: 'Amount must not be 0 or a negative value'
         });
     }
 
     const formatDate = new Date(date);
-    if (isNaN(new Date(date).getTime())) {
+    if (isNaN(formatDate.getTime())) {
         return res.status(400).json({ message: 'Invalid date format' });
     }
 
@@ -35,7 +35,7 @@ exports.addIncome = async (req, res) => {
     }
 };
 
-exports.getIncomes = async (req, res) => {
+export const getIncomes = async (req, res) => {
     try {
         const incomes = await IncomeSchema.find({ userId: req.user._id }).sort({ createdAt: -1 });
         res.status(200).json(incomes);
@@ -44,18 +44,20 @@ exports.getIncomes = async (req, res) => {
     }
 };
 
-exports.deleteIncome = async (req, res) => {
+export const deleteIncome = async (req, res) => {
     const { id } = req.params;
 
-    IncomeSchema.findByIdAndDelete(id)
-        .then(() => {
-            res.status(200).json({ message: 'Income deleted' });
-        })
-        .catch((error) => res.status(500).json({ message: `${error}` }));
+    try {
+        await IncomeSchema.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Income deleted' });
+    } catch (error) {
+        res.status(500).json({ message: `${error}` });
+    }
 };
 
-exports.updateIncome = async (req, res) => {
+export const updateIncome = async (req, res) => {
     const { id } = req.params;
+
     try {
         const updatedIncome = await IncomeSchema.findByIdAndUpdate(id, { ...req.body }, { new: true });
 
