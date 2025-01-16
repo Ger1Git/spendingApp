@@ -12,6 +12,8 @@ const PORT = process.env.PORT;
 const frontendUrl = process.env.FRONTEND_URL;
 const corsOptions = {
     origin: function (origin, callback) {
+        console.log('Request Origin:', origin);
+        console.log('Frontend URL:', frontendUrl);
         if (origin === frontendUrl || !origin) {
             callback(null, true);
         } else {

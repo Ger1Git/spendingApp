@@ -11,10 +11,8 @@ import Login from './Components/Account/Login';
 import Account from './Components/Account/MyAccount';
 import Register from './Components/Account/Registration';
 import AuthRoute from './Components/Account/AuthRoute';
-import { useGlobalContext } from './context/globalContext';
 
 function App() {
-    const global = useGlobalContext();
     const scrollableRef = useRef(null);
     const isAuthenticated = !!Cookies.get('token');
 
