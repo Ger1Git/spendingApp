@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai';
 import { PiSignOut } from 'react-icons/pi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaChevronRight } from 'react-icons/fa';
-import { IoIosArrowDropright } from 'react-icons/io';
 import { navItems } from '../utils/utils';
 import Cookies from 'js-cookie';
 import logo from '../images/logo.svg';
@@ -46,12 +45,12 @@ const Navigation = () => {
                 <div className='w-[60px] h-[35px] lg:w-[100px] lg:h-[60px] rounded-full overflow-hidden relative'>
                     <img src={logo} alt='Not loaded' className='h-100 w-50 object-cover'></img>
                 </div>
-                <div className='text-white font-cursive text-sm lg:text-lg'>Spending Tracker</div>
+                <div className='text-white font-serif text-sm lg:text-lg'>Spending Tracker</div>
             </div>
             {isAuthenticated && (
                 <>
                     <div className='hidden md:block relative'>
-                        <ul ref={navRef} className='flex font-cursive'>
+                        <ul ref={navRef} className='flex font-serif'>
                             {navItems.map((item) => (
                                 <li
                                     key={item?.id}

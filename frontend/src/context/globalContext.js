@@ -1,47 +1,46 @@
 import React, { useContext, useState, useCallback } from 'react';
-import axios from 'axios';
 import useRequestWithAuth from '../hooks/useRequestWithAuth';
-
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost4000/api/v1';
 
 const GlobalContext = React.createContext();
 
 export const Provider = ({ children }) => {
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+    const [successIncomes, setSuccessIncomes] = useState('');
+    const [successExpenses, setSuccessExpenses] = useState('');
+    const [incomesError, setIncomesError] = useState('');
+    const [expensesError, setExpensesError] = useState('');
     const { request } = useRequestWithAuth();
 
     const addIncome = async (income) => {
         try {
             await request('/add-income', 'POST', income);
-            setSuccess('Income successfully added');
-            setError('');
+            setSuccessIncomes('Income successfully added');
+            setIncomesError('');
             getIncomes();
         } catch (err) {
-            setError(err.message);
+            setIncomesError(err.message);
         }
     };
 
     const getIncomes = useCallback(async () => {
         try {
             const data = await request('/get-incomes');
-            setError('');
+            setIncomesError('');
             setIncomes(data);
         } catch (error) {
-            setError(error.message);
+            setIncomesError(error.message);
         }
     }, [request]);
 
     const deleteIncome = async (id) => {
         try {
             await request(`/delete-income/${id}`, 'DELETE');
-            setError('');
-            setSuccess('Income successfully deleted');
+            setIncomesError('');
+            setSuccessIncomes('Income successfully deleted');
             getIncomes();
         } catch (error) {
-            setError(error.message);
+            setIncomesError(error.message);
         }
     };
 
@@ -50,39 +49,39 @@ export const Provider = ({ children }) => {
             const response = await request(`/update-income/${id}`, 'PUT', data);
             return response;
         } catch (error) {
-            setError(error.response.data.message);
+            setIncomesError(error.response.data.message);
         }
     };
 
     const addExpense = async (expense) => {
         try {
             await request('/add-expense', 'POST', expense);
-            setSuccess('Expense successfully added');
-            setError('');
+            setSuccessExpenses('Expense successfully added');
+            setExpensesError('');
             getExpenses();
         } catch (error) {
-            setError(error.message);
+            setExpensesError(error.message);
         }
     };
 
     const getExpenses = useCallback(async () => {
         try {
             const data = await request('/get-expenses');
-            setError('');
+            setExpensesError('');
             setExpenses(data);
         } catch (error) {
-            setError(error.message);
+            setExpensesError(error.message);
         }
     }, [request]);
 
     const deleteExpense = async (id) => {
         try {
             await request(`/delete-expense/${id}`, 'DELETE');
-            setError('');
-            setSuccess('Expense successfully deleted');
+            setExpensesError('');
+            setSuccessExpenses('Expense successfully deleted');
             getExpenses();
         } catch (error) {
-            setError(error.message);
+            setExpensesError(error.message);
         }
     };
 
@@ -91,7 +90,7 @@ export const Provider = ({ children }) => {
             const response = await request(`/update-expense/${id}`, 'PUT', data);
             return response;
         } catch (error) {
-            setError(error.response.data.message);
+            setExpensesError(error.response.data.message);
         }
     };
 
@@ -129,10 +128,14 @@ export const Provider = ({ children }) => {
                 transactionHistory,
                 incomes,
                 expenses,
-                success,
-                error,
-                setSuccess,
-                setError
+                successIncomes,
+                incomesError,
+                setSuccessIncomes,
+                setIncomesError,
+                expensesError,
+                successExpenses,
+                setSuccessExpenses,
+                setExpensesError
             }}
         >
             {children}

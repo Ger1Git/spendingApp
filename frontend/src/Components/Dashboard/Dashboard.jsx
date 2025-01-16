@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     const value = selectedChart === 'Incomes' ? totalIncome() : selectedChart === 'Expenses' ? totalExpenses() : totalBalance();
 
-    const colorClass = value > 0 ? 'text-green-500' : 'text-red-500';
+    const colorClass = value > 0 ? 'text-green' : 'text-red';
 
     const handleChartChange = (e) => {
         setSelectedChart(e.target.value);

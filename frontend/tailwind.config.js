@@ -5,7 +5,8 @@ module.exports = {
         extend: {
             colors: {
                 turqoise: '#c7e6fa',
-                success: '#218838'
+                green: '#2f9c2f',
+                red: '#ca2626'
             },
             fontFamily: {
                 cursive: ['cursive']

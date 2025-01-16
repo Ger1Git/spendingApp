@@ -29,8 +29,8 @@ const Notification = ({ success, error }) => {
 
     return (
         <>
-            {visibleSuccess && <div className='text-green-500 bg-green-100 border border-green-300 shadow-md rounded-md mt-2 p-2'>{visibleSuccess}</div>}
-            {visibleError && <div className='text-red-500 bg-red-100 border border-red-300 shadow-md rounded-md mt-2 p-2'>{visibleError}</div>}
+            {visibleSuccess && <div className='text-green bg-green-100 border border-green-300 shadow-md rounded-md mt-2 p-2'>{visibleSuccess}</div>}
+            {visibleError && <div className='text-red bg-red-100 border border-red-300 shadow-md rounded-md mt-2 p-2'>{visibleError}</div>}
         </>
     );
 };

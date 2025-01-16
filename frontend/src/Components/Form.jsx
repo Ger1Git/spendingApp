@@ -9,7 +9,7 @@ import { incomeCategories, expenseCategories } from '../utils/utils';
 import Notification from './Notifications';
 
 const Form = ({ type, onSubmit }) => {
-    const { addIncome, addExpense, error, success } = useGlobalContext();
+    const { incomesError, expensesError, successIncomes, successExpenses } = useGlobalContext();
     const [formData, setFormData] = useState({
         title: '',
         amount: '',
@@ -198,7 +198,7 @@ const Form = ({ type, onSubmit }) => {
                 >
                     <FaPlus /> Add {transaction}
                 </button>
-                <Notification success={success} error={error} />
+                <Notification success={transaction === 'income' ? successIncomes : successExpenses} error={transaction === 'income' ? incomesError : expensesError} />
                 <div className='my-2 text-md'>* - field is required</div>
             </form>
         </div>

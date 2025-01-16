@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { parse, isValid, format } from 'date-fns';
+import { parse, format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import { GiWallet } from 'react-icons/gi';
 import { ImBin } from 'react-icons/im';
@@ -29,7 +29,6 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
     });
 
     useEffect(() => {
-        // Update original values when item properties change
         setOriginalValues({
             title,
             category,
@@ -41,7 +40,6 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
 
     useEffect(() => {
         if (isEditing) {
-            // Save current values when editing starts
             setOriginalValues({
                 title: newTitle,
                 category: newCategory,
@@ -50,7 +48,7 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                 description: newDescription
             });
         }
-    }, [isEditing]);
+    }, [isEditing, newTitle, newCategory, newAmount, newDate, newDescription]);
 
     const updateNewIncome = async () => {
         try {
@@ -110,8 +108,8 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                         <>
                             <div>{`${newTitle} (${newCategory})`}</div>
                             <div className='flex gap-3'>
-                                <div className={`flex items-center gap-1 ${newAmount < 0 ? 'text-red-500' : 'text-green-500'}`}>
-                                    <FaMoneyBillAlt /> {newAmount} RON
+                                <div className={`flex items-center text-shadow-outline gap-1 ${newAmount < 0 ? 'text-red' : 'text-green'}`}>
+                                    <FaMoneyBillAlt color={`${newAmount < 0 ? 'rgb(202, 38, 38)' : 'rgb(47, 156, 47)'}`}/> {newAmount} RON
                                 </div>
                                 <div className='flex items-center gap-1'>
                                     <FaCalendarDays />
@@ -200,7 +198,7 @@ const Item = ({ _id, title, amount, date, category, description, transaction }) 
                 />
                 <ImBin
                     size={20}
-                    className={`transition duration-300 
+                    className={`transition duration-300
                         ${
                             isEditing
                                 ? 'opacity-0 translate-x-[40px] cursor-default'

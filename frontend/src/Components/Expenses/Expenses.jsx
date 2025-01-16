@@ -5,28 +5,28 @@ import { format } from 'date-fns';
 import Item from '../Item';
 
 const Expenses = () => {
-    const { expenses, getExpenses, addExpense, setError } = useGlobalContext();
+    const { expenses, getExpenses, addExpense, setExpensesError } = useGlobalContext();
 
     useEffect(() => {
         if (expenses.length === 0) {
             getExpenses();
         }
-    }, []);
+    }, [expenses.length, getExpenses]);
 
     const handleAddIncome = async (expense) => {
         try {
             await addExpense(expense);
             await getExpenses();
         } catch (err) {
-            setError(err.message || 'Failed to add expense');
+            setExpensesError(err.message || 'Failed to add expense');
         }
     };
 
     return (
         <>
             <div className='flex flex-col lg:my-[50px] gap-[15px] bg-blue-400 bg-opacity-40 p-5 rounded-md shadow-dark text-white min-h-[100px]'>
-                <div className='text-center font-cursive text-[30px] mb-4'>Expenses</div>
-                <div className='flex flex-col lg:max-h-[559px] mx-[20px] md:flex-row justify-center gap-[30px]'>
+                <div className='text-center font-serif text-[30px] lg:text-[45px] mb-4'>Expenses</div>
+                <div className='flex flex-col lg:max-h-[600px] mx-[20px] md:flex-row justify-center gap-[30px]'>
                     <Form type={'Expense'} onSubmit={handleAddIncome} />
                     <div className='order-1 md:order-2 flex flex-col gap-[15px] bg-blue-400 bg-opacity-40 max-h-[480px] lg:max-h-full p-5 rounded-md shadow-dark text-white overflow-hidden overflow-y-auto custom-scrollbar'>
                         {expenses && expenses.length ? (
