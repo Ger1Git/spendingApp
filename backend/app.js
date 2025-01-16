@@ -22,8 +22,8 @@ const corsOptions = {
 };
 
 //middlewares
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
 
 //routes
 const routes = require('./routes/routes');
@@ -32,6 +32,10 @@ app.use('/api/v1', routes);
 
 app.get('/', (req, res) => {
     res.send('Server is ready');
+});
+
+app.get('/test', (req, res) => {
+    res.send(`The frontend url for CORS is ${frontendUrl}`);
 });
 
 const server = () => {
